@@ -6,52 +6,79 @@
     android:layout_height="match_parent"
     xmlns:android.support.design="http://schemas.android.com/apk/res-auto"
     tools:context=".Registration1"
-    android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp">
+    android:layout_marginEnd="@dimen/layout_marginEnd"
+    android:layout_marginStart="@dimen/layout_marginStart"
+    android:layout_marginBottom="@dimen/layout_marginBottom"
+    android:layout_marginTop="@dimen/layout_marginTop"
+    >
+
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/fName"
+        android:id="@+id/fNameTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/name"
+            android:id="@+id/fNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/firstName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/lName"
+        android:id="@+id/lNameTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android.support.design:counterEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fName">
+        app:layout_constraintTop_toBottomOf="@id/fNameTIL">
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/address"
+            android:id="@+id/lNameET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lastName" />
     </android.support.design.widget.TextInputLayout>
-    <!--Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/phoneTIL"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="Submit"
-        android:onClick="submitForm"
+        android.support.design:counterEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address_til" /-->
+        app:layout_constraintTop_toBottomOf="@id/lNameTIL">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/phoneET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phoneNum" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eMailTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneTIL">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/eMailET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/eMail" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/continueBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="25dp"
+        android:text="@string/continueBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+         />
 
 </android.support.constraint.ConstraintLayout>

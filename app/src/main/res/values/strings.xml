@@ -3,4 +3,13 @@
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="phoneNum">Phone Number</string>
+    <string name="eMail">E-Mail</string>
+    <string name="continueBtn">Continue</string>
+    <string name="err_msg_fName">Plese enter your First Name</string>
+    <string name="err_msg_lName">Plese enter your Last Name</string>
+    <string name="err_msg_phone">Plese enter a valid Phone Number</string>
+    <string name="err_msg_email">Plese enter a valid Email</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
