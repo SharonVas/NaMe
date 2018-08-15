@@ -1,14 +1,22 @@
 package com.svnb2.name;
 
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class Registration1 extends AppCompatActivity {
+import com.svnb2.name.R;
+import com.svnb2.name.ValidationHelper;
+
+public class Registration1 extends Fragment {
+
 
     //TextInputLayout variables
     private TextInputLayout textInputLayoutfName;
@@ -27,12 +35,20 @@ public class Registration1 extends AppCompatActivity {
 
     private ValidationHelper validation;
 
+  //  MoveToOtherFragement moveToOtherFragement;
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration1);
-        getSupportActionBar().setTitle("Registration");
-        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View rootView = inflater.inflate(
+        R.layout.fragment_registration1,container,false);
+        return rootView;
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initViews();
         initListeners();
     }
@@ -41,19 +57,19 @@ public class Registration1 extends AppCompatActivity {
      * method to initialize views objects
      */
     private void initViews() {
-        textInputLayoutfName = (TextInputLayout) findViewById(R.id.fNameTIL);
-        textInputLayoutlName = (TextInputLayout) findViewById(R.id.lNameTIL);
-        textInputLayoutPhone = (TextInputLayout) findViewById(R.id.phoneTIL);
-        textInputLayoutEmail = (TextInputLayout) findViewById(R.id.eMailTIL);
+        textInputLayoutfName = (TextInputLayout) getView().findViewById(R.id.fNameTIL);
+        textInputLayoutlName = (TextInputLayout) getView().findViewById(R.id.lNameTIL);
+        textInputLayoutPhone = (TextInputLayout) getView().findViewById(R.id.phoneTIL);
+        textInputLayoutEmail = (TextInputLayout) getView().findViewById(R.id.eMailTIL);
 
-        editTextfName = (EditText) findViewById(R.id.fNameET);
-        editTextlName = (EditText) findViewById(R.id.lNameET);
-        editTextPhone = (EditText) findViewById(R.id.phoneET);
-        editTextEmail = (EditText) findViewById(R.id.eMailET);
+        editTextfName = (EditText) getView().findViewById(R.id.fNameET);
+        editTextlName = (EditText) getView().findViewById(R.id.lNameET);
+        editTextPhone = (EditText) getView().findViewById(R.id.phoneET);
+        editTextEmail = (EditText) getView().findViewById(R.id.eMailET);
 
-        continueBtn = (Button) findViewById(R.id.continueBtn);
+        continueBtn = (Button) getView().findViewById(R.id.continueBtn);
 
-        validation = new ValidationHelper(this);
+        validation = new ValidationHelper(getActivity());
     }
 
     /**
@@ -64,8 +80,26 @@ public class Registration1 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkValidation();
+
+               FragmentTransaction trans = getFragmentManager().beginTransaction();
+                /*
+                 * IMPORTANT: We use the "root frame" defined in
+                 * "root_fragment.xml" as the reference to replace fragment
+                 */
+                trans.replace(R.id.fragment_container, new Registration2());
+
+                /*
+                 * IMPORTANT: The following lines allow us to add the fragment
+                 * to the stack and return to it later, by pressing back
+                 */
+                trans.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                trans.addToBackStack(null);
+
+                trans.commit();
             }
+
         });
+
     }
 
     /**
@@ -87,11 +121,6 @@ public class Registration1 extends AppCompatActivity {
             return;
         }
 
-        //Toast.makeText(getApplicationContext(),getString(R.string.success_message),Toast.LENGTH_LONG).show();
-
-
     }
-
-
 
 }
