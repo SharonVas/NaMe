@@ -2,11 +2,17 @@
     <string name="app_name">NaMe</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
+    <string name="middletName">Middle Name</string>
+    <string name="Prefix">Prefix</string>
+    <string name="Suffix">Suffix</string>
     <string name="phoneNum">Phone Number</string>
     <string name="eMail">E-Mail</string>
     <string name="continueBtn">Continue</string>
     <string name="err_msg_fName">Plese enter your First Name</string>
     <string name="err_msg_lName">Plese enter your Last Name</string>
+    <string name="err_msg_midName">Plese enter your Middle Name</string>
+    <string name="err_msg_prefix">Plese enter your Prefix</string>
+    `<string name="err_msg_suffix">Plese enter your Suffix</string>
     <string name="err_msg_phone">Plese enter a valid Phone Number</string>
     <string name="err_msg_email">Plese enter a valid Email</string>
 
