@@ -3,6 +3,11 @@ package com.svnb2.name;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.constraint.Group;
+import android.support.constraint.Guideline;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,11 +16,16 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.svnb2.name.R;
 import com.svnb2.name.ValidationHelper;
+
+import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class Registration1 extends Fragment {
 
@@ -37,16 +47,19 @@ public class Registration1 extends Fragment {
     private EditText editTextMidName;
     private EditText editTextPrefix;
     private EditText editTextSuffix;
-    //private EditText [] editTextFieldsArr= {editTextfName,editTextlName,editTextPhone,editTextEmail};
 
     //Button
     private Button continueBtn;
     private Button addName;
     private Button addPhone;
-
+    private Button removePhone;
+    private Spinner phoneTypes;
+    private Guideline guidelinePhoneTypes;
     private ValidationHelper validation;
+    private Group phoneGroup;
 
-    //  MoveToOtherFragement moveToOtherFragement;
+
+
 
     @Nullable
     @Override
@@ -89,10 +102,15 @@ public class Registration1 extends Fragment {
         editTextSuffix = (EditText) getView().findViewById(R.id.suffixET);
 
 
+
         continueBtn = (Button) getView().findViewById(R.id.continueBtn);
         addName = (Button) getView().findViewById(R.id.addName);
         addPhone = (Button) getView().findViewById(R.id.addPhone);
-
+        removePhone = (Button) getView().findViewById(R.id.removePhobe);
+        phoneTypes=(Spinner)getView().findViewById(R.id.phoneTypes);
+        guidelinePhoneTypes=(Guideline)getView().findViewById(R.id.guidelinePhoneTypes);
+        phoneGroup= getView().findViewById(R.id.groupPhone);
+        phoneGroup.setVisibility(View.GONE);
         validation = new ValidationHelper(getActivity());
     }
 
@@ -203,39 +221,61 @@ public class Registration1 extends Fragment {
 
 
 
-        addPhone.addTextChangedListener(new TextWatcher() {
+        editTextPhone.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                addPhone.setVisibility(View.VISIBLE);
+                addPhone.setVisibility(View.GONE);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(s.toString().trim().isEmpty()){
-                    addPhone.setVisibility(View.VISIBLE);
+                    phoneGroup.setVisibility(View.GONE);
+                    phoneTypes.setRight(getId());
                 } else {
-                    addPhone.setVisibility(View.GONE);
+                    phoneGroup.setVisibility(View.VISIBLE);
+                    guidelinePhoneTypes.setGuidelinePercent((float) 0.55);
+                    phoneTypes.setRight(R.id.guidelineAddButton);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().trim().isEmpty()){
-                    addPhone.setVisibility(View.VISIBLE);
+                   phoneGroup.setVisibility(View.GONE);
+                    guidelinePhoneTypes.setGuidelinePercent((float) 0.70);
+                    phoneTypes.setRight(getId());
+
                 } else {
-                    addPhone.setVisibility(View.GONE);
+                    phoneGroup.setVisibility(View.VISIBLE);
+                    guidelinePhoneTypes.setGuidelinePercent((float) 0.55);
+                    phoneTypes.setRight(R.id.guidelineAddButton);
+
                 }
             }
 
 
         });
 
+        phoneTypes.setOnItemSelectedListener(new CustomSpinnerOnItemSelectedListener());
+
 
 
     }
+/*
+    public void onAddField(View v) {
+        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.field, null);
+        // Add the new row before the add field button.
+        parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
+    }
 
+    public void onDelete(View v) {
+        parentLinearLayout.removeView((View) v.getParent());
+    }
+*/
 
 
 
