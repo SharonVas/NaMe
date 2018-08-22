@@ -11,6 +11,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -22,8 +24,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+
 import com.svnb2.name.R;
 import com.svnb2.name.ValidationHelper;
+
+import java.util.ArrayList;
 
 import static android.support.v4.content.ContextCompat.getSystemService;
 
@@ -53,10 +58,12 @@ public class Registration1 extends Fragment {
     private Button addName;
     private Button addPhone;
     private Button removePhone;
+
     private Spinner phoneTypes;
     private Guideline guidelinePhoneTypes;
     private ValidationHelper validation;
     private Group phoneGroup;
+    private RecyclerView phoneList;
 
 
 
@@ -75,6 +82,7 @@ public class Registration1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         initListeners();
+
     }
 
     /**
@@ -107,11 +115,16 @@ public class Registration1 extends Fragment {
         addName = (Button) getView().findViewById(R.id.addName);
         addPhone = (Button) getView().findViewById(R.id.addPhone);
         removePhone = (Button) getView().findViewById(R.id.removePhobe);
+
         phoneTypes=(Spinner)getView().findViewById(R.id.phoneTypes);
         guidelinePhoneTypes=(Guideline)getView().findViewById(R.id.guidelinePhoneTypes);
         phoneGroup= getView().findViewById(R.id.groupPhone);
         phoneGroup.setVisibility(View.GONE);
         validation = new ValidationHelper(getActivity());
+        phoneList=(RecyclerView)getView().findViewById(R.id.phoneRecycleView);
+        phoneList.setLayoutManager(new LinearLayoutManager(getContext()));
+       // phoneList=new ArrayList<>();
+        //phoneList.setAdapter();
     }
 
     /**
