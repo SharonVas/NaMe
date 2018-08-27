@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/AppTheme"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineAddButton"
@@ -40,16 +41,40 @@
             android:hint="@string/phoneNum" />
     </android.support.design.widget.TextInputLayout>
 
-    <Button
+ <!--   <Button
         android:id="@+id/addPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addPhone"
-        app:layout_constraintEnd_toEndOf="@id/guidelineAddButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phoneTIL"
 
         />
+-->
 
+    <TextView
+        android:id="@+id/addPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17dp"
+        android:layout_marginTop="3dp"
+        android:text="@string/addPhone"
+        app:layout_constraintStart_toEndOf="@id/addPhoneImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phoneTIL"
+     />
+
+    <ImageView
+        android:id="@+id/addPhoneImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_add"
+        app:layout_constraintTop_toBottomOf="@id/phoneTIL"
+        app:layout_constraintEnd_toStartOf="@id/addPhone"
+        app:layout_constraintStart_toEndOf="@id/guidelinePhoneTypes"
+
+        />
+<!--
     <Button
         android:id="@+id/removePhobe"
         android:layout_width="0dp"
@@ -59,6 +84,17 @@
         app:layout_constraintBottom_toTopOf="@id/addPhone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guidelineAddButton"
+        app:layout_constraintTop_toTopOf="parent" />
+        -->
+    <ImageView
+        android:id="@+id/removePhobe"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_remove"
+        app:layout_constraintBottom_toTopOf="@id/addPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf ="@id/guidelineAddButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Group
@@ -75,7 +111,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@id/guidelinePhoneTypes"
         app:layout_constraintTop_toTopOf="parent"
-
+        app:layout_constraintBottom_toTopOf="@id/addPhone"
         />
 
 

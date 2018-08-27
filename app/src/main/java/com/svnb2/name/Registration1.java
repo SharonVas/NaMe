@@ -11,6 +11,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -19,16 +20,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
+import android.widget.Toast;
 
 import com.svnb2.name.R;
 import com.svnb2.name.ValidationHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.support.v4.content.ContextCompat.getSystemService;
 
@@ -63,7 +66,9 @@ public class Registration1 extends Fragment {
     private Guideline guidelinePhoneTypes;
     private ValidationHelper validation;
     private Group phoneGroup;
+    private List<PhoneRecord> phoneRecordsList= new ArrayList<>();
     private RecyclerView phoneList;
+    private  PhoneRecordAdapter phoneRecordAdapter;
 
 
 
@@ -73,6 +78,7 @@ public class Registration1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_registration1, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return rootView;
 
     }
@@ -82,7 +88,6 @@ public class Registration1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         initListeners();
-
     }
 
     /**
@@ -92,7 +97,7 @@ public class Registration1 extends Fragment {
         textInputLayoutfName = (TextInputLayout) getView().findViewById(R.id.fNameTIL);
         textInputLayoutlName = (TextInputLayout) getView().findViewById(R.id.lNameTIL);
         textInputLayoutlName.setVisibility(View.GONE);
-        textInputLayoutPhone = (TextInputLayout) getView().findViewById(R.id.phoneTIL);
+        //textInputLayoutPhone = (TextInputLayout) getView().findViewById(R.id.phoneTIL);
         textInputLayoutEmail = (TextInputLayout) getView().findViewById(R.id.eMailTIL);
         textInputLayoutMidName = (TextInputLayout) getView().findViewById(R.id.midNameTIL);
         textInputLayoutMidName.setVisibility(View.GONE);
@@ -103,7 +108,7 @@ public class Registration1 extends Fragment {
 
         editTextfName = (EditText) getView().findViewById(R.id.fNameET);
         editTextlName = (EditText) getView().findViewById(R.id.lNameET);
-        editTextPhone = (EditText) getView().findViewById(R.id.phoneET);
+       // editTextPhone = (EditText) getView().findViewById(R.id.phoneET);
         editTextEmail = (EditText) getView().findViewById(R.id.eMailET);
         editTextMidName = (EditText) getView().findViewById(R.id.midNameET);
         editTextPrefix = (EditText) getView().findViewById(R.id.prefixET);
@@ -113,16 +118,24 @@ public class Registration1 extends Fragment {
 
         continueBtn = (Button) getView().findViewById(R.id.continueBtn);
         addName = (Button) getView().findViewById(R.id.addName);
-        addPhone = (Button) getView().findViewById(R.id.addPhone);
-        removePhone = (Button) getView().findViewById(R.id.removePhobe);
+      /*  addPhone = (Button) getView().findViewById(R.id.addPhone);
+       removePhone = (Button) getView().findViewById(R.id.removePhobe);
 
         phoneTypes=(Spinner)getView().findViewById(R.id.phoneTypes);
         guidelinePhoneTypes=(Guideline)getView().findViewById(R.id.guidelinePhoneTypes);
         phoneGroup= getView().findViewById(R.id.groupPhone);
-        phoneGroup.setVisibility(View.GONE);
+        phoneGroup.setVisibility(View.GONE);*/
         validation = new ValidationHelper(getActivity());
+
+
+       phoneRecordAdapter=new PhoneRecordAdapter(phoneRecordsList);
         phoneList=(RecyclerView)getView().findViewById(R.id.phoneRecycleView);
         phoneList.setLayoutManager(new LinearLayoutManager(getContext()));
+        phoneList.setItemAnimator(new DefaultItemAnimator());
+        phoneList.setAdapter(phoneRecordAdapter);
+        PhoneRecord p1= new PhoneRecord();
+        phoneRecordsList.add(p1);
+        //phoneList.setAccessibilityDelegateCompat(phoneRecordAdapter);
        // phoneList=new ArrayList<>();
         //phoneList.setAdapter();
     }
@@ -185,7 +198,7 @@ public class Registration1 extends Fragment {
             }
         });
 
-
+/*
         editTextlName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
 
@@ -194,8 +207,8 @@ public class Registration1 extends Fragment {
                     return;
             }
         });
-
-        editTextPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+*/
+       /* editTextPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
 
             public void onFocusChange(View v, boolean hasFocus) {
@@ -209,8 +222,8 @@ public class Registration1 extends Fragment {
                 if (!validation.isEditTextEmail(editTextEmail, textInputLayoutEmail, getString(R.string.err_msg_email)))
                     return;
             }
-        });
-
+        });*/
+/*
         editTextMidName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!validation.isEditTextFilled(editTextMidName, textInputLayoutMidName, getString(R.string.err_msg_midName)))
@@ -232,9 +245,9 @@ public class Registration1 extends Fragment {
             }
         });
 
+*/
 
-
-        editTextPhone.addTextChangedListener(new TextWatcher() {
+     /*   editTextPhone.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -270,11 +283,22 @@ public class Registration1 extends Fragment {
             }
 
 
-        });
+        });*/
 
-        phoneTypes.setOnItemSelectedListener(new CustomSpinnerOnItemSelectedListener());
+   //     phoneTypes.setOnItemSelectedListener(new CustomSpinnerOnItemSelectedListener());
 
+        phoneList.addOnItemTouchListener(new RecyclerViewClickListener(getActivity(), phoneList, new RecyclerViewClickListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                PhoneRecord phoneRecord = phoneRecordsList.get(position);
+                Toast.makeText(getActivity(), phoneRecord.getPhoneNum() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
     }
 /*

@@ -2,7 +2,7 @@ package com.svnb2.name;
 
 public class PhoneRecord {
     private String phoneNum;
-    private enum phoneType{
+    protected enum PhoneType{
         Mobile,
         Work,
         Home,
@@ -14,6 +14,7 @@ public class PhoneRecord {
         Custom
 
     }
+    protected PhoneType phoneType;
 
     public String getPhoneNum() {
         return phoneNum;
@@ -22,4 +23,13 @@ public class PhoneRecord {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+    public PhoneType getPhoneType() {
+        return phoneType;
+    }
+
+    public void setPhoneType(PhoneType phoneType) {
+        this.phoneType = phoneType;
+    }
+
 }

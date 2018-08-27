@@ -15,7 +15,7 @@
     `<string name="err_msg_suffix">Plese enter your Suffix</string>
     <string name="err_msg_phone">Plese enter a valid Phone Number</string>
     <string name="err_msg_email">Plese enter a valid Email</string>
-    <string name="addPhone">+ Add Phone</string>
+    <string name="addPhone">Add Phone</string>
     <string-array name="phone_types">
         <item>Mobile</item>
         <item>Work</item>
