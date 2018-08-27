@@ -81,6 +81,7 @@ public class Registration1 extends Fragment {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         return rootView;
 
+
     }
 
     @Override
@@ -88,6 +89,7 @@ public class Registration1 extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initViews();
         initListeners();
+
     }
 
     /**
@@ -134,6 +136,7 @@ public class Registration1 extends Fragment {
         phoneList.setItemAnimator(new DefaultItemAnimator());
         phoneList.setAdapter(phoneRecordAdapter);
         PhoneRecord p1= new PhoneRecord();
+        phoneRecordsList.clear();
         phoneRecordsList.add(p1);
         //phoneList.setAccessibilityDelegateCompat(phoneRecordAdapter);
        // phoneList=new ArrayList<>();
@@ -287,7 +290,7 @@ public class Registration1 extends Fragment {
 
    //     phoneTypes.setOnItemSelectedListener(new CustomSpinnerOnItemSelectedListener());
 
-        phoneList.addOnItemTouchListener(new RecyclerViewClickListener(getActivity(), phoneList, new RecyclerViewClickListener.ClickListener() {
+       /* phoneList.addOnItemTouchListener(new RecyclerViewClickListener(getActivity(), phoneList, new RecyclerViewClickListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 PhoneRecord phoneRecord = phoneRecordsList.get(position);
@@ -298,7 +301,20 @@ public class Registration1 extends Fragment {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
+
+        phoneRecordAdapter.setOnItemClickListener(new PhoneRecordAdapter.OnItemClickListener() {
+            @Override
+            public void onAddPhoneClick(int position) {
+                int newPosition=position;
+                addPhoneRow(newPosition);
+            }
+
+            @Override
+            public void onRemovePhoneClick(int position) {
+                removePhoneRow(position);
+            }
+        });
 
     }
 /*
@@ -337,6 +353,16 @@ public class Registration1 extends Fragment {
             return;
         }
 
+    }
+
+    public void addPhoneRow(int position){
+        phoneRecordsList.add(position,new PhoneRecord());
+        //phoneList.setAdapter(phoneRecordAdapter);
+        phoneRecordAdapter.notifyDataSetChanged();
+    }
+    public void removePhoneRow(int position){
+        phoneRecordsList.remove(position);
+        phoneRecordAdapter.notifyDataSetChanged();
     }
 
 
