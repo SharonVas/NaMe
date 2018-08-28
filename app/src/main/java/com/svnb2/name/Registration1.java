@@ -1,39 +1,28 @@
 package com.svnb2.name;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.constraint.Group;
 import android.support.constraint.Guideline;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.svnb2.name.R;
-import com.svnb2.name.ValidationHelper;
+import com.svnb2.name.Phone.PhoneRecord;
+import com.svnb2.name.Phone.PhoneRecordAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.support.v4.content.ContextCompat.getSystemService;
 
 public class Registration1 extends Fragment {
 
@@ -68,7 +57,7 @@ public class Registration1 extends Fragment {
     private Group phoneGroup;
     private List<PhoneRecord> phoneRecordsList= new ArrayList<>();
     private RecyclerView phoneList;
-    private  PhoneRecordAdapter phoneRecordAdapter;
+    private PhoneRecordAdapter phoneRecordAdapter;
 
 
 
@@ -359,6 +348,7 @@ public class Registration1 extends Fragment {
         phoneRecordsList.add(position,new PhoneRecord());
         //phoneList.setAdapter(phoneRecordAdapter);
         phoneRecordAdapter.notifyDataSetChanged();
+
     }
     public void removePhoneRow(int position){
         phoneRecordsList.remove(position);

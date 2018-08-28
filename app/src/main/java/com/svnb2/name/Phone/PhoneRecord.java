@@ -1,4 +1,4 @@
-package com.svnb2.name;
+package com.svnb2.name.Phone;
 
 public class PhoneRecord {
     private String phoneNum;
